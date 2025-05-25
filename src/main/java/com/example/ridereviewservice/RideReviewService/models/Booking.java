@@ -12,8 +12,14 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 public class Booking extends BaseModel {
+    /*
+        One to One -> default fetch type -> Eager
+        One to Many -> default fetch type -> Lazy
+        Many to Many -> defdult fetch type -> Lazy
+        Many to One -> default fetch type -> Eager
+     */
     // A booking has one review and 1 review has 1 booking
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Review review;
 
     @Temporal(value = TemporalType.TIMESTAMP)

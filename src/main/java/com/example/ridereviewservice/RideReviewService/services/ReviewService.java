@@ -37,26 +37,36 @@ public class ReviewService implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("checking....");
 
-//        Review rv = Review
-//                .builder()
-//                .content("Good ride experience")
-//                .rating(4.0)
-//                .build();  // code to create plain java object
+        Review rv = Review
+                .builder()
+                .content("First experience")
+                .rating(4.0)
+                .build();  // code to create plain java object
 
+        Driver dr = Driver
+                .builder()
+                .name("Ana")
+                .licenseNumber("HR56J34")
+                .build();
 
-//        Booking bk = Booking
-//                .builder()
-//                .bookingStatus(BookingStatus.COMPELTED)
-//                .startTime(new Date())
-//                .review(rv)
-//                .build();
+        Booking bk = Booking
+                .builder()
+                .bookingStatus(BookingStatus.SCHEDULED)
+                .startTime(new Date())
+                .review(rv)
+                .driver(dr)
+                .build();
+
 
 //        booking object depends on review, so create the review object and save it first then go
 //        for saving the booking object
 
-//        reviewRepository.save(rv);
-//        System.out.println(rv);
+//        driverRepository.save(dr);
 //        bookingRepository.save(bk);
+//        reviewRepository.save(rv);
+
+//        System.out.println(rv);
+
 
 
 //        TO delete a record by id. since there is a foreign key constrain in booking table where it holds a foreign key of booking_review table,
@@ -77,16 +87,22 @@ public class ReviewService implements CommandLineRunner {
 //        reviewRepository.deleteById(2L);
 
 //   DRIVE FIND LOGIC
-        Optional<Driver> dd = driverRepository.findByIdAndLicenseNumber(1L,"HP569134");
-//        if(dd.isPresent()){
-//            System.out.println("ID: " + dd.get().getId() + "Name: "+ dd.get().getName() + "License No. : " + dd.get().getLicenseNumber());
-//
-        List<Booking> fdbks = bookingRepository.findAllByDriverId(2L);
-        System.out.println("checking join condiuto ");
-
-        for(Booking bk : fdbks){
-            System.out.println(bk.getBookingStatus());
+        Optional<Driver> dd = driverRepository.findById(202L);
+        if(dd.isPresent()){
+            System.out.println("Inside Present");
+            List<Booking> driverBookings = dd.get().getBookings();
+            System.out.println(driverBookings);
+            for(Booking bok : driverBookings){
+                System.out.println(bok.getId());
+            }
         }
+
+//        List<Booking> fdbks = bookingRepository.findAllByDriverId(2L);
+//        System.out.println("checking join condition ");
+
+//        for(Booking bk : fdbks){
+//            System.out.println(bk.getBookingStatus());
+//        }
 
 
     }
