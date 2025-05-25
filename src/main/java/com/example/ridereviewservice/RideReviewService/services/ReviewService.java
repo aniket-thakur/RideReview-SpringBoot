@@ -87,15 +87,31 @@ public class ReviewService implements CommandLineRunner {
 //        reviewRepository.deleteById(2L);
 
 //   DRIVE FIND LOGIC
-        Optional<Driver> dd = driverRepository.findById(202L);
-        if(dd.isPresent()){
-            System.out.println("Inside Present");
-            List<Booking> driverBookings = dd.get().getBookings();
-            System.out.println(driverBookings);
-            for(Booking bok : driverBookings){
-                System.out.println(bok.getId());
-            }
-        }
+//        Optional<Driver> dd = driverRepository.findById(202L);
+//        if(dd.isPresent()){
+//            System.out.println("Inside Present");
+//            List<Booking> driverBookings = dd.get().getBookings();
+//            System.out.println(driverBookings);
+//            for(Booking bok : driverBookings){
+//                System.out.println(bok.getId());
+//            }
+//        }
+
+//        FIND DRIVER WITH RAW QUERY
+//        Optional<Driver> rawdriver = driverRepository.rawFindByIdAndLicenseNumber(202L, "HR56J34");
+//        rawdriver.ifPresent(driver -> System.out.println("id = " + driver.getId()
+//                + " Name: " + driver.getName()
+//                + " License: " + driver.getLicenseNumber()));
+
+//        FIND DRIVER USING HIBERNATE QUERY LANGUAGE (RAW)
+        Optional<Driver> hqldriver = driverRepository.rawHQLFindByIdAndName(202L, "Ana");
+        hqldriver.ifPresent(driver -> System.out.println("id = " + driver.getId()
+                + " Name: " + driver.getName()
+                + " License: " + driver.getLicenseNumber())
+        );
+        System.out.println("completed");
+
+
 
 //        List<Booking> fdbks = bookingRepository.findAllByDriverId(2L);
 //        System.out.println("checking join condition ");
