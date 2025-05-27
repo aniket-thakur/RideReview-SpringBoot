@@ -8,13 +8,12 @@ import com.example.ridereviewservice.RideReviewService.models.Review;
 import com.example.ridereviewservice.RideReviewService.repositories.BookingRepository;
 import com.example.ridereviewservice.RideReviewService.repositories.DriverRepository;
 import com.example.ridereviewservice.RideReviewService.repositories.ReviewRepository;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReviewService implements CommandLineRunner {
@@ -34,6 +33,7 @@ public class ReviewService implements CommandLineRunner {
 //        this.bookingRepository = bookingRepository;
 //    }
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         System.out.println("checking....");
 
@@ -104,12 +104,12 @@ public class ReviewService implements CommandLineRunner {
 //                + " License: " + driver.getLicenseNumber()));
 
 //        FIND DRIVER USING HIBERNATE QUERY LANGUAGE (RAW)
-        Optional<Driver> hqldriver = driverRepository.rawHQLFindByIdAndName(202L, "Ana");
-        hqldriver.ifPresent(driver -> System.out.println("id = " + driver.getId()
-                + " Name: " + driver.getName()
-                + " License: " + driver.getLicenseNumber())
-        );
-        System.out.println("completed");
+//        Optional<Driver> hqldriver = driverRepository.rawHQLFindByIdAndName(202L, "Ana");
+//        hqldriver.ifPresent(driver -> System.out.println("id = " + driver.getId()
+//                + " Name: " + driver.getName()
+//                + " License: " + driver.getLicenseNumber())
+//        );
+//        System.out.println("completed");
 
 
 
@@ -119,6 +119,17 @@ public class ReviewService implements CommandLineRunner {
 //        for(Booking bk : fdbks){
 //            System.out.println(bk.getBookingStatus());
 //        }
+
+        // creating a list of driver ids
+        List<Long> drivers = new ArrayList<>(Arrays.asList(1L,12L,3L,17L,52L,152L,202L));
+        List<Driver> driv = driverRepository.findAllByIdIn(drivers);
+//        List<Booking> bookings = bookingRepository.findAllByDriverIn(driv);
+
+//        driv.forEach(driverr ->System.out.println(driverr.getName()));
+        for(Driver d : driv){
+            List<Booking> bookings = d.getBookings();
+            bookings.forEach(booking -> System.out.println(booking.getId()));
+        }
 
 
     }
