@@ -1,7 +1,9 @@
 package com.example.ridereviewservice.RideReviewService.repositories;
 
 import com.example.ridereviewservice.RideReviewService.models.Driver;
+import com.example.ridereviewservice.RideReviewService.models.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,4 +22,11 @@ public interface DriverRepository extends JpaRepository<Driver,Long> {
 //    Optional<Driver> rawHQLFindByIdAndName(Long id, String name);
 
     List<Driver> findAllByIdIn(List<Long> id);
+
+/*
+Below query is this:
+//SElECT r FROM Review r INNER JOIN Booking b ON r.id = b.review  INNER JOIN Driver d ON b.driver = d.id WHERE d.id = :driverId")
+ */
+    @Query("SELECT r FROM Booking b JOIN b.review r WHERE b.driver.id = :driverId")
+    List<Review> findAllReviewByDriverId(Long driverId);
 }

@@ -132,6 +132,12 @@ public class ReviewService implements CommandLineRunner {
         }
 
 
+//        Find all review by driver ID;
+
+        List<Review> review = driverRepository.findAllReviewByDriverId(2L);
+        review.forEach(r -> System.out.println(r.getContent()));
+
+
     }
 }
 

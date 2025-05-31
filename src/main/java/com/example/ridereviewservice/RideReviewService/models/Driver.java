@@ -28,8 +28,8 @@ public class Driver extends BaseModel {
     @Column(nullable = false)
     private Integer age;
 
-//    @Column(nullable = false)
-//    private String sex;
+    @Column(nullable = true)
+    private String mobileNumber;
 
 //    A driver can have many bookings
     @OneToMany(mappedBy = "driver",  fetch = FetchType.LAZY)
