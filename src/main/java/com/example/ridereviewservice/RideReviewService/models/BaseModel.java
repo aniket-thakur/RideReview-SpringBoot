@@ -16,7 +16,7 @@ import java.util.Date;
 public class BaseModel    {
 
     @Id  // annotation makes the rid property as primary key in the table
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)  // Identity means auto-increment
+    @GeneratedValue(strategy= GenerationType.IDENTITY)  // Identity means auto-increment
     protected Long id;
 
     @Column(nullable = false)
